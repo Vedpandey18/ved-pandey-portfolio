@@ -3,10 +3,12 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  max-width: 100vw;
   z-index: 1000;
   background: var(--dark-light);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   transition: var(--transition);
+  overflow-x: hidden;
 }
 
 header.scrolled {
@@ -107,25 +109,56 @@ header.scrolled {
   transform: scale(1.1);
 }
 
+@media (max-width: 992px) {
+  .nav-links {
+    gap: 25px;
+  }
+  
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+  }
+}
+
 @media (max-width: 768px) {
+  header {
+    width: 100%;
+    max-width: 100vw;
+  }
+  
   .navbar {
-    padding: 15px 0;
+    padding: 12px 0;
+  }
+  
+  .logo {
+    font-size: 1.6rem;
+  }
+  
+  .logo-dot {
+    width: 8px;
+    height: 8px;
   }
 
   .nav-links {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 0;
     width: 100%;
+    max-width: 100vw;
     background: var(--dark-light);
     flex-direction: column;
     align-items: center;
-    padding: 25px 0;
+    padding: 20px 0;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transform: translateY(-150%);
     transition: var(--transition);
     z-index: 999;
     gap: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
   }
 
   .nav-links.active {
@@ -133,10 +166,36 @@ header.scrolled {
   }
 
   .nav-links li {
-    margin: 15px 0;
+    margin: 12px 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .nav-links a {
+    width: 100%;
+    padding: 12px 20px;
+    display: block;
+    font-size: 1rem;
   }
 
   .mobile-menu-btn {
     display: block;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo {
+    font-size: 1.4rem;
+  }
+  
+  .nav-links {
+    top: 55px;
+    padding: 15px 0;
+  }
+  
+  .nav-links a {
+    font-size: 0.95rem;
+    padding: 10px 15px;
   }
 }

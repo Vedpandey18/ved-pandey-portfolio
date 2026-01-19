@@ -212,9 +212,8 @@ const Footer = () => {
 
         <div className="copyright">
           <p>
-            &copy; 2023 Ved Pandey. Crafted with{' '}
-            <i className="fas fa-heart" style={{ color: '#ef4444' }}></i> and{' '}
-            <i className="fas fa-code" style={{ color: '#06b6d4' }}></i>
+            &copy; 2026 Crafted By Ved Pandey. Crafted
+      
           </p>
         </div>
       </div>

@@ -1,6 +1,9 @@
 .App {
   width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
 }
 
 /* Animations */
@@ -139,6 +142,14 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
 }
 
 /* Section */
@@ -245,25 +256,78 @@ section {
 @media (max-width: 1200px) {
   .container {
     width: 95%;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+  section {
+    padding: 80px 0;
+  }
+  
+  .section-title {
+    margin-bottom: 50px;
+  }
+  
+  .section-title h2 {
+    font-size: 2.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    padding: 0 20px;
   }
 }
 
 @media (max-width: 768px) {
-  section {
-    padding: 70px 0;
+  .container {
+    padding: 0 15px;
   }
   
-  .section-title h2 {
-    font-size: 2.3rem;
-  }
-}
-
-@media (max-width: 576px) {
   section {
     padding: 60px 0;
   }
   
+  .section-title {
+    margin-bottom: 40px;
+  }
+  
   .section-title h2 {
     font-size: 2rem;
+    line-height: 1.3;
+  }
+  
+  .section-subtitle {
+    font-size: 0.95rem;
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  section {
+    padding: 50px 0;
+  }
+  
+  .section-title {
+    margin-bottom: 30px;
+  }
+  
+  .section-title h2 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
+    padding: 0 10px;
   }
 }
