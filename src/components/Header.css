@@ -4,7 +4,7 @@ header {
   left: 0;
   width: 100%;
   max-width: 100vw;
-  z-index: 1000;
+  z-index: 10000;
   background: var(--dark-light);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   transition: var(--transition);
@@ -169,7 +169,7 @@ header.scrolled {
     visibility: hidden;
     pointer-events: none;
     transition: all 0.3s ease;
-    z-index: 999;
+    z-index: 9999;
     gap: 0;
     overflow-y: auto;
     max-height: calc(100vh - 60px);
@@ -200,10 +200,11 @@ header.scrolled {
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    z-index: 1001;
+    z-index: 10001;
     position: relative;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   
   .mobile-menu-btn:focus {

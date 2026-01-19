@@ -43,29 +43,38 @@ const Header = () => {
       const mobileMenuBtn = event.target.closest('.mobile-menu-btn');
       const navLinks = event.target.closest('.nav-links');
       const navLinkItem = event.target.closest('.nav-links a');
+      const navLinkLi = event.target.closest('.nav-links li');
       
       // Don't close if clicking on menu button, nav links, or inside header
-      if (mobileMenuBtn || navLinks || navLinkItem || (header && header.contains(event.target))) {
+      if (mobileMenuBtn || navLinks || navLinkItem || navLinkLi || (header && header.contains(event.target))) {
         return;
       }
       
       setIsMobileMenuOpen(false);
     };
 
-    // Close mobile menu on scroll
+    // Close mobile menu on scroll (but with a small delay to allow button clicks)
+    let scrollTimeout;
     const handleScrollClose = () => {
       if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          setIsMobileMenuOpen(false);
+        }, 100);
       }
     };
 
     if (isMobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside);
+      // Use a slight delay to ensure click events are processed first
+      setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+      }, 10);
       window.addEventListener('scroll', handleScrollClose, { passive: true });
     }
     
     return () => {
+      clearTimeout(scrollTimeout);
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
       window.removeEventListener('scroll', handleScrollClose);
@@ -159,8 +168,12 @@ const Header = () => {
           <button 
             className="mobile-menu-btn"
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
-              setIsMobileMenuOpen(!isMobileMenuOpen);
+              setIsMobileMenuOpen(prev => !prev);
+            }}
+            onTouchStart={(e) => {
+              e.stopPropagation();
             }}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}

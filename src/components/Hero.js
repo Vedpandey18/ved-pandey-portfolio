@@ -7,7 +7,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setTypingComplete(true);
-    }, 3500);
+    }, 6000);
     return () => clearTimeout(timer);
   }, []);
 
