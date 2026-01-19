@@ -1,5 +1,5 @@
 .services {
-  padding: 100px 0;
+  padding: 70px 0;
   background: var(--matte-black);
   position: relative;
   overflow: hidden;
@@ -24,8 +24,8 @@
 }
 
 .services .section-title h2 {
-  font-size: 3rem;
-  margin-bottom: 15px;
+  font-size: 2.3rem;
+  margin-bottom: 12px;
   background: linear-gradient(135deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -33,7 +33,7 @@
 }
 
 .services .section-subtitle {
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.7);
   max-width: 700px;
   margin: 0 auto;
@@ -48,8 +48,8 @@
 
 .service-card {
   background: var(--matte-black-light);
-  border-radius: 20px;
-  padding: 30px;
+  border-radius: 15px;
+  padding: 25px 22px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: var(--transition);
   position: relative;
@@ -59,7 +59,7 @@
   animation: fadeInUp 0.8s ease forwards;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .service-card::before {

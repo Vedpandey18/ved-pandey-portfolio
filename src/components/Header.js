@@ -14,17 +14,21 @@ const Header = () => {
 
     const updateActiveSection = () => {
       const sections = ['home', 'about', 'skills', 'services', 'projects', 'experience', 'contact'];
-      const scrollPos = window.scrollY + 100;
+      const scrollPos = window.scrollY + 150; // Increased offset for better detection
+      let currentSection = 'home';
 
       sections.forEach(section => {
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
-          if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
-            setActiveSection(section);
+          // Check if section is in viewport
+          if (scrollPos >= offsetTop - 100 && scrollPos < offsetTop + offsetHeight - 100) {
+            currentSection = section;
           }
         }
       });
+
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);

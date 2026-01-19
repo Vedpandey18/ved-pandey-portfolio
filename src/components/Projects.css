@@ -16,18 +16,18 @@
 }
 
 .filter-btn {
-  padding: 12px 28px;
+  padding: 10px 22px;
   background: var(--matte-black-light);
   border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--gray);
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .filter-btn:hover {
@@ -46,8 +46,8 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 35px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -55,9 +55,9 @@
 
 .project-card {
   background: var(--matte-black-light);
-  border-radius: 20px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
   transition: var(--transition);
   animation: fadeInUp 0.8s ease forwards;
   opacity: 0;
