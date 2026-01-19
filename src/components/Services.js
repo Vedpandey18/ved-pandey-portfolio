@@ -17,12 +17,13 @@ const Services = () => {
       { threshold: 0.1 }
     );
 
-    serviceCardsRef.current.forEach((card) => {
+    const cards = serviceCardsRef.current;
+    cards.forEach((card) => {
       if (card) observer.observe(card);
     });
 
     return () => {
-      serviceCardsRef.current.forEach((card) => {
+      cards.forEach((card) => {
         if (card) observer.unobserve(card);
       });
     };

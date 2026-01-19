@@ -17,12 +17,13 @@ const Skills = () => {
       { threshold: 0.1 }
     );
 
-    skillCardsRef.current.forEach((card) => {
+    const cards = skillCardsRef.current;
+    cards.forEach((card) => {
       if (card) observer.observe(card);
     });
 
     return () => {
-      skillCardsRef.current.forEach((card) => {
+      cards.forEach((card) => {
         if (card) observer.unobserve(card);
       });
     };

@@ -41,12 +41,29 @@ footer {
   font-size: 1.3rem;
   transition: var(--transition);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
 }
 
-.social-link:hover {
+.social-link:hover:not(:disabled) {
   background: var(--card-gradient-1);
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.social-link:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.footer-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: var(--transition);
+  cursor: default;
 }
 
 .footer-links {

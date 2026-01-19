@@ -52,20 +52,24 @@ const Footer = () => {
               >
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a
-                href="#"
+              <button
+                type="button"
                 className="social-link"
                 aria-label="Twitter"
+                disabled
+                style={{ cursor: 'not-allowed', opacity: 0.5 }}
               >
                 <i className="fab fa-twitter"></i>
-              </a>
-              <a
-                href="#"
+              </button>
+              <button
+                type="button"
                 className="social-link"
                 aria-label="Instagram"
+                disabled
+                style={{ cursor: 'not-allowed', opacity: 0.5 }}
               >
                 <i className="fab fa-instagram"></i>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -177,29 +181,29 @@ const Footer = () => {
               <h3>Certifications</h3>
               <ul>
                 <li>
-                  <a href="#">
+                  <span className="footer-list-item">
                     <i className="fas fa-chevron-right"></i> CAPM
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#">
+                  <span className="footer-list-item">
                     <i className="fas fa-chevron-right"></i> Agile & Scrum
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#">
+                  <span className="footer-list-item">
                     <i className="fas fa-chevron-right"></i> Azure Fundamentals
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#">
+                  <span className="footer-list-item">
                     <i className="fas fa-chevron-right"></i> Java Certification
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#">
+                  <span className="footer-list-item">
                     <i className="fas fa-chevron-right"></i> System Design
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
