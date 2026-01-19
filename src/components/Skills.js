@@ -18,14 +18,18 @@ const Skills = () => {
     );
 
     const cards = skillCardsRef.current;
-    cards.forEach((card) => {
-      if (card) observer.observe(card);
-    });
+    if (cards && Array.isArray(cards)) {
+      cards.forEach((card) => {
+        if (card) observer.observe(card);
+      });
+    }
 
     return () => {
-      cards.forEach((card) => {
-        if (card) observer.unobserve(card);
-      });
+      if (cards && Array.isArray(cards)) {
+        cards.forEach((card) => {
+          if (card) observer.unobserve(card);
+        });
+      }
     };
   }, []);
 
