@@ -27,9 +27,34 @@ const Header = () => {
       });
     };
 
+    // Close mobile menu when clicking outside
+    const handleClickOutside = (event) => {
+      const header = document.getElementById('header');
+      const mobileMenuBtn = event.target.closest('.mobile-menu-btn');
+      const navLinks = event.target.closest('.nav-links');
+      
+      if (isMobileMenuOpen && header && !mobileMenuBtn && !navLinks) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    // Close mobile menu on scroll
+    const handleScrollClose = () => {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScrollClose);
+    document.addEventListener('click', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScrollClose);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   const handleNavClick = (sectionId) => {
     setIsMobileMenuOpen(false);

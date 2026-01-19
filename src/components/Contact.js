@@ -66,6 +66,9 @@ const Contact = () => {
             </div>
             <h3>Contact Information</h3>
             <div className="skill-tags">
+            <span className="skill-tag contact-tag">
+                <i className="fas fa-map-marker-alt"></i> Bengaluru, India
+              </span>
               <a 
                 href="mailto:Vedpandeyofficial18@gmail.com" 
                 className="skill-tag contact-tag"
@@ -73,9 +76,7 @@ const Contact = () => {
               >
                 <i className="fas fa-envelope"></i> Vedpandeyofficial18@gmail.com
               </a>
-              <span className="skill-tag contact-tag">
-                <i className="fas fa-map-marker-alt"></i> Bengaluru, India
-              </span>
+
               <a 
                 href="https://linkedin.com/in/vedpandeyofficial18" 
                 target="_blank" 

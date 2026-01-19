@@ -212,7 +212,7 @@ const Footer = () => {
 
         <div className="copyright">
           <p>
-            &copy; 2026 Crafted By Ved Pandey. Crafted
+            &copy; 2026 Crafted By Ved Pandey | All rights reserved.
       
           </p>
         </div>
