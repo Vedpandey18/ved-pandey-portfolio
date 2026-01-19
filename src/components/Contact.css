@@ -1,0 +1,98 @@
+#contact {
+  background: var(--matte-black);
+  position: relative;
+}
+
+.contact-image-section {
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  margin: 0 auto 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: var(--transition);
+}
+
+.contact-image-section:hover img {
+  filter: brightness(1);
+  transform: scale(1.05);
+}
+
+.contact-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.contact-card {
+  border-top-color: var(--primary);
+  background: var(--matte-black-light) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.contact-card h3 {
+  color: #ffffff !important;
+}
+
+.summary-card {
+  border-top-color: var(--secondary);
+  background: var(--matte-black-light) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.summary-card h3 {
+  color: #ffffff !important;
+}
+
+.contact-tag {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+  border-color: rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.contact-tag a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.contact-tag:hover,
+.contact-tag a:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+  color: #818cf8;
+  cursor: pointer;
+}
+
+.summary-tag {
+  background: rgba(6, 182, 212, 0.1);
+  color: #06b6d4;
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+@media (max-width: 992px) {
+  .summary-card {
+    grid-column: span 1;
+  }
+}
