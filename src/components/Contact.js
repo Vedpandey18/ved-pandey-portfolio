@@ -66,25 +66,22 @@ const Contact = () => {
             </div>
             <h3>Contact Information</h3>
             <div className="skill-tags">
-            <span className="skill-tag contact-tag">
+              <span className="skill-tag contact-tag">
                 <i className="fas fa-map-marker-alt"></i> Bengaluru, India
               </span>
               <a 
                 href="mailto:Vedpandeyofficial18@gmail.com" 
-                className="skill-tag contact-tag"
-                style={{ textDecoration: 'none', color: 'inherit' }}
+                className="skill-tag contact-tag clickable-link"
               >
                 <i className="fas fa-envelope"></i> Vedpandeyofficial18@gmail.com
               </a>
-
               <a 
                 href="https://linkedin.com/in/vedpandeyofficial18" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="skill-tag contact-tag"
-                style={{ textDecoration: 'none', color: 'inherit' }}
+                className="skill-tag contact-tag clickable-link"
               >
-                <i className="fab fa-linkedin"></i> linkedin.com/in/vedpandeyofficial18
+                <i className="fab fa-linkedin"></i> <span className="link-text">linkedin.com/in/vedpandeyofficial18</span>
               </a>
               <span className="skill-tag contact-tag">
                 <i className="fas fa-graduation-cap"></i> Graduated from Jain University

@@ -27,15 +27,29 @@ const Header = () => {
       });
     };
 
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
+      if (!isMobileMenuOpen) return;
+      
       const header = document.getElementById('header');
       const mobileMenuBtn = event.target.closest('.mobile-menu-btn');
       const navLinks = event.target.closest('.nav-links');
+      const navLinkItem = event.target.closest('.nav-links a');
       
-      if (isMobileMenuOpen && header && !mobileMenuBtn && !navLinks) {
-        setIsMobileMenuOpen(false);
+      // Don't close if clicking on menu button, nav links, or inside header
+      if (mobileMenuBtn || navLinks || navLinkItem || (header && header.contains(event.target))) {
+        return;
       }
+      
+      setIsMobileMenuOpen(false);
     };
 
     // Close mobile menu on scroll
@@ -45,14 +59,16 @@ const Header = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleScrollClose);
-    document.addEventListener('click', handleClickOutside);
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+      window.addEventListener('scroll', handleScrollClose, { passive: true });
+    }
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
       window.removeEventListener('scroll', handleScrollClose);
-      document.removeEventListener('click', handleClickOutside);
     };
   }, [isMobileMenuOpen]);
 
@@ -142,8 +158,13 @@ const Header = () => {
           </ul>
           <button 
             className="mobile-menu-btn"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            type="button"
           >
             <i className={isMobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
           </button>
