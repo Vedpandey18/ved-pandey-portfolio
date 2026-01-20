@@ -1,11 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Header.css';
+
+const navItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'services', label: 'Services' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'contact', label: 'Contact' }
+];
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const menuRef = useRef(null);
+  const buttonRef = useRef(null);
 
+  // Handle scroll for header background and active section
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -13,178 +26,170 @@ const Header = () => {
     };
 
     const updateActiveSection = () => {
-      const sections = ['home', 'about', 'skills', 'services', 'projects', 'experience', 'contact'];
-      const scrollPos = window.scrollY + 150; // Increased offset for better detection
-      let currentSection = 'home';
+      const sections = navItems.map(item => item.id);
+      const scrollPos = window.scrollY + 200;
+      let current = 'home';
 
-      sections.forEach(section => {
-        const element = document.getElementById(section);
+      sections.forEach(sectionId => {
+        const element = document.getElementById(sectionId);
         if (element) {
           const { offsetTop, offsetHeight } = element;
-          // Check if section is in viewport
-          if (scrollPos >= offsetTop - 100 && scrollPos < offsetTop + offsetHeight - 100) {
-            currentSection = section;
+          if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
+            current = sectionId;
           }
         }
       });
 
-      setActiveSection(currentSection);
+      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  useEffect(() => {
-    // Close mobile menu when clicking outside
-    const handleClickOutside = (event) => {
-      if (!isMobileMenuOpen) return;
-      
-      const header = document.getElementById('header');
-      const mobileMenuBtn = event.target.closest('.mobile-menu-btn');
-      const navLinks = event.target.closest('.nav-links');
-      const navLinkItem = event.target.closest('.nav-links a');
-      const navLinkLi = event.target.closest('.nav-links li');
-      
-      // Don't close if clicking on menu button, nav links, or inside header
-      if (mobileMenuBtn || navLinks || navLinkItem || navLinkLi || (header && header.contains(event.target))) {
-        return;
-      }
-      
-      setIsMobileMenuOpen(false);
-    };
+  // Handle mobile menu toggle
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(prev => !prev);
+  };
 
-    // Close mobile menu on scroll (but with a small delay to allow button clicks)
-    let scrollTimeout;
-    const handleScrollClose = () => {
-      if (isMobileMenuOpen) {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          setIsMobileMenuOpen(false);
-        }, 100);
-      }
-    };
-
-    if (isMobileMenuOpen) {
-      // Use a slight delay to ensure click events are processed first
-      setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        document.addEventListener('touchstart', handleClickOutside);
-      }, 10);
-      window.addEventListener('scroll', handleScrollClose, { passive: true });
-    }
-    
-    return () => {
-      clearTimeout(scrollTimeout);
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-      window.removeEventListener('scroll', handleScrollClose);
-    };
-  }, [isMobileMenuOpen]);
-
-  const handleNavClick = (sectionId) => {
+  // Handle navigation click
+  const handleNavClick = (sectionId, e) => {
+    e.preventDefault();
     setIsMobileMenuOpen(false);
+    document.body.style.overflow = '';
+    
     const element = document.getElementById(sectionId);
     if (element) {
+      const headerHeight = 70;
+      const elementPosition = element.offsetTop - headerHeight;
+      
       window.scrollTo({
-        top: element.offsetTop - 80,
+        top: elementPosition,
         behavior: 'smooth'
       });
     }
   };
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isMobileMenuOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+        document.body.style.overflow = '';
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        document.body.style.overflow = '';
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
+
   return (
-    <header id="header" className={isScrolled ? 'scrolled' : ''}>
-      <div className="container">
-        <nav className="navbar">
-          <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}>
-            <span>VP</span>
-            <div className="logo-dot"></div>
-          </a>
-          <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-            <li>
-              <a 
-                href="#home" 
-                className={activeSection === 'home' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#about" 
-                className={activeSection === 'about' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('about'); }}
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#skills" 
-                className={activeSection === 'skills' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('skills'); }}
-              >
-                Skills
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#services" 
-                className={activeSection === 'services' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('services'); }}
-              >
-                Services
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#projects" 
-                className={activeSection === 'projects' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('projects'); }}
-              >
-                Projects
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#experience" 
-                className={activeSection === 'experience' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('experience'); }}
-              >
-                Experience
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#contact" 
-                className={activeSection === 'contact' ? 'active' : ''}
-                onClick={(e) => { e.preventDefault(); handleNavClick('contact'); }}
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-          <button 
-            className="mobile-menu-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsMobileMenuOpen(prev => !prev);
-            }}
-            onTouchStart={(e) => {
-              e.stopPropagation();
-            }}
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-            type="button"
+    <header id="header" className={`header-nav ${isScrolled ? 'scrolled' : ''}`}>
+      <div className="nav-container">
+        <div className="nav-brand">
+          <a 
+            href="#home" 
+            className="brand-link"
+            onClick={(e) => handleNavClick('home', e)}
           >
-            <i className={isMobileMenuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
-          </button>
+            <span className="brand-text">VP</span>
+            <span className="brand-dot"></span>
+          </a>
+        </div>
+
+        {/* Desktop Navigation */}
+        <nav className="desktop-nav" aria-label="Main navigation">
+          <ul className="nav-menu">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(item.id, e)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          ref={buttonRef}
+          className={`mobile-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+          onClick={toggleMobileMenu}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMobileMenuOpen}
+          type="button"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
+
+        {/* Mobile Navigation Overlay */}
+        <div 
+          className={`mobile-overlay ${isMobileMenuOpen ? 'active' : ''}`}
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            document.body.style.overflow = '';
+          }}
+        ></div>
+
+        {/* Mobile Navigation Menu */}
+        <nav 
+          ref={menuRef}
+          className={`mobile-nav ${isMobileMenuOpen ? 'active' : ''}`}
+          aria-label="Mobile navigation"
+        >
+          <ul className="mobile-menu">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`mobile-link ${activeSection === item.id ? 'active' : ''}`}
+                  onClick={(e) => handleNavClick(item.id, e)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
       </div>
     </header>
