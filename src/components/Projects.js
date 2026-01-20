@@ -373,8 +373,21 @@ const Projects = () => {
                   )}
                 </div>
 
-                <div className="view-details-btn">
-                  <i className="fas fa-arrow-right"></i> View Details
+                <div className="project-actions">
+                  {project.github && project.github.startsWith('http') && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="github-link-btn"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <i className="fab fa-github"></i> GitHub
+                    </a>
+                  )}
+                  <div className="view-details-btn">
+                    <i className="fas fa-arrow-right"></i> View Details
+                  </div>
                 </div>
               </div>
             </div>
